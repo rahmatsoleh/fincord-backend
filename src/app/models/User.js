@@ -32,10 +32,10 @@ class User {
         return user[0][0];
     }
 
-    static async getUser({ id, username, email, password }) {
+    static async getUser({ id, username, email, password, token }) {
         const user = await connection.promise().query(
-            'SELECT id, name, username, email, password, token, verified_at, created_at, updated_at FROM users WHERE id = ? OR username = ? OR email = ?',
-            [id, username, email]
+            'SELECT id, name, username, email, password, token, verified_at, created_at, updated_at FROM users WHERE id = ? OR username = ? OR email = ? OR token = ? OR password = ?',
+            [id, username, email, token, password]
         );
         return user[0][0];
     }
@@ -46,6 +46,31 @@ class User {
             [id, username, email, password]
         );
         return user[0][0].token;
+    }
+
+    static async setToken({ id }) {
+        const token = jwt.sign({ id }, 'generated-key', { expiresIn: '7d' });
+        await connection.promise().query(
+            'UPDATE users SET token = ? WHERE id = ?',
+            [token, id]
+        );
+        return token;
+    }
+
+    static async remove({ id }) {
+        const user = await connection.promise().query(
+            'DELETE FROM users WHERE id = ?',
+            [id]
+        );
+        return user;
+    }
+
+    static async update({ id, name, username, email, password, phone, address, token }) {
+        const user = await connection.promise().query(
+            'UPDATE users SET name = ?, username = ?, email = ?, password = ?, phone = ?, address = ?, token = ? WHERE id = ?',
+            [name, username, email, password, phone, address, token, id]
+        );
+        return user;
     }
 }
 

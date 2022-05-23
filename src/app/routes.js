@@ -16,6 +16,11 @@ const routes = [
         method: 'POST',
         path: '/api/login',
         handler: Authentication.login
+    },
+    {
+        method: 'GET',
+        path: '/api/logout',
+        handler: Authentication.logout
     }
 ];
 
