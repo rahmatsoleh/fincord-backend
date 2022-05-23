@@ -48,6 +48,12 @@ Hello, World!
 >    "error": "username or email is already used"
 >}
 >```
+
+### /login
+>Success:
+>```json
+>{
+    
     
 ## Contributors
 - [x] [Rahmat Soleh](https://github.com/rahmatsoleh)

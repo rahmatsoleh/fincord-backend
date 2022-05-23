@@ -33,6 +33,7 @@ class User {
     }
 
     static async getUser({ id, username, email, password, token }) {
+        console.log(token);
         const user = await connection.promise().query(
             'SELECT id, name, username, email, password, token, verified_at, created_at, updated_at FROM users WHERE id = ? OR username = ? OR email = ? OR token = ? OR password = ?',
             [id, username, email, token, password]
@@ -40,12 +41,12 @@ class User {
         return user[0][0];
     }
 
-    static async getToken({ id, username, email, password }) {
+    static async checkToken({ token }) {
         const user = await connection.promise().query(
-            'SELECT token FROM users WHERE id = ? OR username = ? OR email = ? AND password = ?',
-            [id, username, email, password]
+            'SELECT token FROM users WHERE token = ?',
+            [token]
         );
-        return user[0][0].token;
+        return user[0][0];
     }
 
     static async setToken({ id }) {
@@ -55,6 +56,14 @@ class User {
             [token, id]
         );
         return token;
+    }
+
+    static async unsetToken({ token }) {
+        const user = await connection.promise().query(
+            'UPDATE users SET token = "" WHERE token = ?',
+            [token]
+        );
+        return user;
     }
 
     static async remove({ id }) {

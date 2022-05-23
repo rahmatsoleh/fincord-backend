@@ -69,30 +69,21 @@ class Authentication {
     static async logout(request, h) {
         // check token
         const { token } = request.headers;
-        console.log(token);
 
         // getUser
-        const user = await User.getUser({ token });
+        const user = await User.checkToken({ token: token });
         if (!user) {
+            console.log(token);
             return h.response({
-                error: 'token is not valid'
-            }).code(400);
+                error: 'unauthorized'
+            }).code(401);
+        } else {   
+            const updatedUser = await User.unsetToken({ token: token });
+            
+            return h.response({
+                message: 'User logged out successfully'
+            });
         }
-
-        const updatedUser = await User.update({
-            id: user.id,
-            name: user.name,
-            username: user.username,
-            email: user.email,
-            password: user.password,
-            phone: user.phone,
-            address: user.address,
-            token: ''
-        });
-        
-        return h.response({
-            message: 'User logged out successfully'
-        });
     }
 }
 
