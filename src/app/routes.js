@@ -11,6 +11,11 @@ const routes = [
         method: 'POST',
         path: '/api/register',
         handler: Authentication.register
+    },
+    {
+        method: 'POST',
+        path: '/api/login',
+        handler: Authentication.login
     }
 ];
 
