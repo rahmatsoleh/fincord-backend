@@ -5,6 +5,10 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon ./src/index.js",
+    "migrate": "knex migrate:latest",
+    "migrate:rollback": "knex migrate:rollback",
+    "migrate:up": "knex migrate:up",
+    "migrate:down": "knex migrate:down",
     "lint": "eslint ./src"
   },
   "repository": {

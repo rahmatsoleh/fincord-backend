@@ -116,12 +116,12 @@ class Authentication {
                 <p>
                     Please click the link below to verify your email address.
                 </p>
-                <a href="${dotenv.config().parsed.APP_HOST}/verify/${token}">Verify</a>
+                <a href="${dotenv.config().parsed.APP_FULLHOST}/verify/${token}">Verify</a>
                 <p>
                     or copy and paste this link into your browser:
                 </p>
                 <p>
-                    ${dotenv.config().parsed.APP_HOST}/verify/${token}
+                    ${dotenv.config().parsed.APP_FULLHOST}/verify/${token}
                 </p>
             `
         });
@@ -155,7 +155,7 @@ class Authentication {
 
         return h.response({
             message: 'Email verified'
-        });
+        }).code(200);
     }
 }
 

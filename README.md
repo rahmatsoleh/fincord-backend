@@ -2,7 +2,11 @@
 About An application made as a project capstone for the "Kampus Merdeka x dicoding Batch 2" activity as a final requirement in the activity assessment
 
 ## Features
-- [ ] Register
+- [x] Register
+- [x] Login
+- [x] Logout
+- [x] Send Email Verification
+- [x] Verify Email
 
 ## Installation
 1. Clone the repository
@@ -23,6 +27,18 @@ npm install
 4. Run the application
 ```bash
 npm run start
+```
+
+5. Copy .env.example to .env
+```bash
+cp .env.example .env
+```
+
+6. Change .env file to your own
+7. Create a database in your own same with .env file
+8. Migrate the database
+```bash
+npm run migrate
 ```
 
 ## Route
@@ -79,7 +95,47 @@ request header must contain "token".
 >{
 >    "error": "unauthorized"
 >}
-    
+
+### /sendverification
+request header must contain "token".
+>Success:
+>```json
+>{
+>    "message": "Verification email sent"
+>}
+>```
+>Failed 1:
+>```json
+>{
+>    "error": "unauthorized"
+>}
+>```
+>Failed 2:
+>```json
+>{
+>    "error": "user already verified"
+>}
+
+### /verify/:token
+this route does not require /api for prefix
+this route is only available for unverified user.
+>Success:
+>```json
+>{
+>    "message": "User verified"
+>}
+>```
+>Failed 1:
+>```json
+>{
+>    "error": "unauthorized"
+>}
+>```
+>Failed 2:
+>```json
+>{
+>    "error": "user already verified"
+>}
     
 ## Contributors
 - [x] [Rahmat Soleh](https://github.com/rahmatsoleh)
