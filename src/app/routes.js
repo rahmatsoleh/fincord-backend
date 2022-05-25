@@ -27,6 +27,11 @@ const routes = [
         path: '/api/sendverification',
         handler: Authentication.sendVerification
     },
+    {
+        method: 'GET',
+        path: '/verify/{token}',
+        handler: Authentication.verify
+    },
 ];
 
 module.exports = routes;

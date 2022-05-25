@@ -3,8 +3,6 @@ const dotenv = require('dotenv');
 const nodemailer = require('nodemailer');
 
 const sendEmail = async ({to, subject, message}) => {
-    console.log('Sending email...');
-    console.log({to, subject, message});
     const transporter = await nodemailer.createTransport({
         service: 'gmail',
         secure: true,

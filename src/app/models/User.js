@@ -80,6 +80,14 @@ class User {
         );
         return user;
     }
+
+    static async verify({ id }) {
+        const user = await connection.promise().query(
+            'UPDATE users SET verified_at = NOW() WHERE id = ?',
+            [id]
+        );
+        return user;
+    }
 }
 
 module.exports = User;

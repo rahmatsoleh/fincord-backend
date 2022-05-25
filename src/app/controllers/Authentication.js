@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const sendEmail = require('../config/smtp');
+const dotenv = require('dotenv');
 
 class Authentication {
     static async register(request, h) {
@@ -98,9 +99,15 @@ class Authentication {
             }).code(401);
         }
 
+        // check if verified
+        if (user.verified_at) {
+            return h.response({
+                error: 'user already verified'
+            }).code(400);
+        }
+
         // send email
         const email = await user.email;
-        console.log(email);
         await sendEmail({
             to: email,
             subject: 'Verification Email',
@@ -109,18 +116,45 @@ class Authentication {
                 <p>
                     Please click the link below to verify your email address.
                 </p>
-                <a href="http://localhost:3000/verify/${token}">Verify</a>
+                <a href="${dotenv.config().parsed.APP_HOST}/verify/${token}">Verify</a>
                 <p>
                     or copy and paste this link into your browser:
                 </p>
                 <p>
-                    http://localhost:3000/verify/${token}
+                    ${dotenv.config().parsed.APP_HOST}/verify/${token}
                 </p>
             `
         });
 
         return h.response({
             message: 'Verification email sent'
+        });
+    }
+
+    static async verify(request, h){
+        const { token } = request.params;
+
+        // getUser
+        const user = await User.getUser({ token: token });
+
+        if (!user) {
+            return h.response({
+                error: 'unauthorized'
+            }).code(401);
+        }
+
+        // check if verified
+        if (user.verified_at) {
+            return h.response({
+                error: 'user already verified'
+            }).code(400);
+        }
+
+        // set verified
+        const updatedUser = await User.verify({ id: user.id });
+
+        return h.response({
+            message: 'Email verified'
         });
     }
 }
