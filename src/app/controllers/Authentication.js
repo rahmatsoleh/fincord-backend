@@ -1,5 +1,6 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
+const sendEmail = require('../config/smtp');
 
 class Authentication {
     static async register(request, h) {
@@ -73,7 +74,6 @@ class Authentication {
         // getUser
         const user = await User.checkToken({ token: token });
         if (!user) {
-            console.log(token);
             return h.response({
                 error: 'unauthorized'
             }).code(401);
@@ -84,6 +84,44 @@ class Authentication {
                 message: 'User logged out successfully'
             });
         }
+    }
+
+    static async sendVerification(request, h){
+        const { token } = request.headers;
+
+        // getUser
+        const user = await User.getUser({ token: token });
+
+        if (!user) {
+            return h.response({
+                error: 'unauthorized'
+            }).code(401);
+        }
+
+        // send email
+        const email = await user.email;
+        console.log(email);
+        await sendEmail({
+            to: email,
+            subject: 'Verification Email',
+            message: `
+                <h1>Verification Email</h1>
+                <p>
+                    Please click the link below to verify your email address.
+                </p>
+                <a href="http://localhost:3000/verify/${token}">Verify</a>
+                <p>
+                    or copy and paste this link into your browser:
+                </p>
+                <p>
+                    http://localhost:3000/verify/${token}
+                </p>
+            `
+        });
+
+        return h.response({
+            message: 'Verification email sent'
+        });
     }
 }
 

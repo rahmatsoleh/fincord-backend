@@ -1,5 +1,5 @@
 const Hapi = require('@hapi/hapi');
-const connection = require('./app/config/app.js');
+const connection = require('./app/config/database.js');
 const routes = require('./app/routes.js');
 
 const init = async() => {

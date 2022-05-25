@@ -29,7 +29,7 @@ npm run start
 Root route is /api
 example for register route: /api/register
 ### /
-```json
+```
 Hello, World!
 ```
 ### /register

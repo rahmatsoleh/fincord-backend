@@ -4,7 +4,7 @@
 const mysql = require('mysql2');
 const dotenv = require('dotenv');
 const bcrypt = require('bcrypt');
-const connection = require('../config/app');
+const connection = require('../config/database');
 const nanoid = require('nanoid');
 const jwt = require('jsonwebtoken');
 
@@ -33,7 +33,6 @@ class User {
     }
 
     static async getUser({ id, username, email, password, token }) {
-        console.log(token);
         const user = await connection.promise().query(
             'SELECT id, name, username, email, password, token, verified_at, created_at, updated_at FROM users WHERE id = ? OR username = ? OR email = ? OR token = ? OR password = ?',
             [id, username, email, token, password]

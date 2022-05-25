@@ -21,7 +21,12 @@ const routes = [
         method: 'GET',
         path: '/api/logout',
         handler: Authentication.logout
-    }
+    },
+    {
+        method: 'GET',
+        path: '/api/sendverification',
+        handler: Authentication.sendVerification
+    },
 ];
 
 module.exports = routes;
