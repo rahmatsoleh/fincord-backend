@@ -14,8 +14,6 @@ exports.up = function(knex) {
         table.string('profile').nullable();
         table.string('address').nullable();
         table.string('phone').nullable();
-        // table.dateTime('created_at').notNullable();
-        // table.dateTime('updated_at').notNullable();
 
         table.unique('username');
         table.unique('email');

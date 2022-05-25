@@ -53,6 +53,32 @@ Hello, World!
 >Success:
 >```json
 >{
+>    "message": "User logged in successfully",
+>    "username": "your username",
+>    "email": "ur@mail.com",
+>    "token": "your token"
+>}
+>```
+>Failed 1:
+>```json
+>{
+>    "message": "User already logged in",
+>    "token": "your token"
+>}
+
+### /logout:
+request header must contain "token".
+>Success:
+>```json
+>{
+>    "message": "User logged out successfully"
+>}
+>```
+>Failed 1:
+>```json
+>{
+>    "error": "unauthorized"
+>}
     
     
 ## Contributors
