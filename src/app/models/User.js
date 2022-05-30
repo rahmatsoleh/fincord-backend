@@ -1,6 +1,3 @@
-// User model
-// Language: javascript
-
 const mysql = require('mysql2');
 const dotenv = require('dotenv');
 const bcrypt = require('bcrypt');
@@ -37,6 +34,34 @@ class User {
             'SELECT id, name, username, email, password, token, verified_at, created_at, updated_at FROM users WHERE id = ? OR username = ? OR email = ? OR token = ? OR password = ?',
             [id, username, email, token, password]
         );
+        return user[0][0];
+    }
+
+    static async authWithUsername({ username, password }) {
+        const user = await connection.promise().query(
+            'SELECT id, name, username, email, password, token, verified_at, created_at, updated_at FROM users WHERE username = ?',
+            [username]
+        );
+        if (!user[0][0]) {
+            return null;
+        }
+        if (!bcrypt.compareSync(password, user[0][0].password)) {
+            return null;
+        }
+        return user[0][0];
+    }
+
+    static async authWithEmail({ email, password }) {
+        const user = await connection.promise().query(
+            'SELECT id, name, username, email, password, token, verified_at, created_at, updated_at FROM users WHERE email = ?',
+            [email]
+        );
+        if (!user[0][0]) {
+            return null;
+        }
+        if (!bcrypt.compareSync(password, user[0][0].password)) {
+            return null;
+        }
         return user[0][0];
     }
 
