@@ -5,6 +5,10 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon ./src/index.js",
+    "migrate": "knex migrate:latest",
+    "migrate:rollback": "knex migrate:rollback",
+    "migrate:up": "knex migrate:up",
+    "migrate:down": "knex migrate:down",
     "lint": "eslint ./src"
   },
   "repository": {
@@ -31,6 +35,7 @@
     "jsonwebtoken": "^8.5.1",
     "knex": "^2.0.0",
     "mysql2": "^2.3.3",
-    "nanoid": "^3.3.3"
+    "nanoid": "^3.3.3",
+    "nodemailer": "^6.7.5"
   }
 }

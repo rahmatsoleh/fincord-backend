@@ -1,11 +1,15 @@
+/* eslint-disable no-undef */
 const Hapi = require('@hapi/hapi');
-const connection = require('./app/config/app.js');
 const routes = require('./app/routes.js');
+const dotenv = require('dotenv');
+
+const host = dotenv.config().parsed.APP_HOST || 'localhost';
+const port = process.env.PORT ||  dotenv.config().parsed.APP_PORT || 3000;
 
 const init = async() => {
     const server = Hapi.server({
-        port: 3000,
-        host: 'localhost',
+        port: port,
+        host: host,
         routes: {
             cors: true
         }

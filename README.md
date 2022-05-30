@@ -2,7 +2,11 @@
 About An application made as a project capstone for the "Kampus Merdeka x dicoding Batch 2" activity as a final requirement in the activity assessment
 
 ## Features
-- [ ] Register
+- [x] Register
+- [x] Login
+- [x] Logout
+- [x] Send Email Verification
+- [x] Verify Email
 
 ## Installation
 1. Clone the repository
@@ -25,11 +29,23 @@ npm install
 npm run start
 ```
 
+5. Copy .env.example to .env
+```bash
+cp .env.example .env
+```
+
+6. Change .env file to your own
+7. Create a database in your own same with .env file
+8. Migrate the database
+```bash
+npm run migrate
+```
+
 ## Route
 Root route is /api
 example for register route: /api/register
 ### /
-```json
+```
 Hello, World!
 ```
 ### /register
@@ -53,7 +69,73 @@ Hello, World!
 >Success:
 >```json
 >{
-    
+>    "message": "User logged in successfully",
+>    "username": "your username",
+>    "email": "ur@mail.com",
+>    "token": "your token"
+>}
+>```
+>Failed 1:
+>```json
+>{
+>    "message": "User already logged in",
+>    "token": "your token"
+>}
+
+### /logout:
+request header must contain "token".
+>Success:
+>```json
+>{
+>    "message": "User logged out successfully"
+>}
+>```
+>Failed 1:
+>```json
+>{
+>    "error": "unauthorized"
+>}
+
+### /sendverification
+request header must contain "token".
+>Success:
+>```json
+>{
+>    "message": "Verification email sent"
+>}
+>```
+>Failed 1:
+>```json
+>{
+>    "error": "unauthorized"
+>}
+>```
+>Failed 2:
+>```json
+>{
+>    "error": "user already verified"
+>}
+
+### /verify/:token
+this route does not require /api for prefix
+this route is only available for unverified user.
+>Success:
+>```json
+>{
+>    "message": "User verified"
+>}
+>```
+>Failed 1:
+>```json
+>{
+>    "error": "unauthorized"
+>}
+>```
+>Failed 2:
+>```json
+>{
+>    "error": "user already verified"
+>}
     
 ## Contributors
 - [x] [Rahmat Soleh](https://github.com/rahmatsoleh)
