@@ -35,7 +35,6 @@
     "@hapi/hapi": "^20.2.2",
     "bcrypt": "^5.0.1",
     "dotenv": "^16.0.1",
-    "forever": "^4.0.3",
     "jsonwebtoken": "^8.5.1",
     "knex": "^2.0.0",
     "mysql2": "^2.3.3",
