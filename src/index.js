@@ -1,10 +1,10 @@
+/* eslint-disable no-undef */
 const Hapi = require('@hapi/hapi');
-const connection = require('./app/config/database.js');
 const routes = require('./app/routes.js');
 const dotenv = require('dotenv');
 
 const host = dotenv.config().parsed.APP_HOST || 'localhost';
-const port = dotenv.config().parsed.APP_PORT || 3000;
+const port = process.env.PORT ||  dotenv.config().parsed.APP_PORT || 3000;
 
 const init = async() => {
     const server = Hapi.server({
