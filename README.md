@@ -8,15 +8,18 @@ About An application made as a project capstone for the "Kampus Merdeka x dicodi
 - [x] Send Email Verification
 - [x] Verify Email
 
-## Installation
+## Show NPM Features
+type `npm run' to show command lists
+
+## Standard Procedure For Local Development
 1. Clone the repository
 ```bash
-git clone [https://github.com/rahmatsoleh/fincord.git](https://github.com/Dzyfhuba/fincord-back.git)
+git clone https://github.com/Dzyfhuba/fincord-back.git
 ```
 
 2. Change directory to the cloned repository
 ```bash
-cd fincord-BACK
+cd fincord-back
 ```
 
 3. Install dependencies
@@ -49,6 +52,18 @@ example for register route: /api/register
 Hello, World!
 ```
 ### /register
+>POST  
+>x-www-form-urlencoded
+>```
+> {
+>   name: String,
+>   username: String,
+>   email: Email String,
+>   password: String,
+>   address: String,
+>   phone: String
+> }
+> ```
 >Success:
 >```json
 >{
@@ -66,6 +81,21 @@ Hello, World!
 >```
 
 ### /login
+>POST
+>x-www-form-urlencoded
+>```
+> {
+>   email: Email String,
+>   password: String
+> }
+> ```
+> or
+>```
+> {
+>   username: String,
+>   password: String
+> }
+> ```
 >Success:
 >```json
 >{

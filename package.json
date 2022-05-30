@@ -4,7 +4,10 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon ./src/index.js",
+    "start": "npx pm2 start src/index.js --name fincord-back --interpreter node --watch",
+    "status": "npx pm2 status",
+    "stop": "npx pm2 stop fincord-back",
+    "start-dev": "nodemon ./src/index.js",
     "migrate": "knex migrate:latest",
     "migrate:rollback": "knex migrate:rollback",
     "migrate:up": "knex migrate:up",
@@ -32,10 +35,12 @@
     "@hapi/hapi": "^20.2.2",
     "bcrypt": "^5.0.1",
     "dotenv": "^16.0.1",
+    "forever": "^4.0.3",
     "jsonwebtoken": "^8.5.1",
     "knex": "^2.0.0",
     "mysql2": "^2.3.3",
     "nanoid": "^3.3.3",
-    "nodemailer": "^6.7.5"
+    "nodemailer": "^6.7.5",
+    "pm2": "^5.2.0"
   }
 }
