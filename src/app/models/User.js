@@ -65,6 +65,17 @@ class User {
         return user[0][0];
     }
 
+    static async AuthWithToken({ token }) {
+        const user = await connection.promise().query(
+            'SELECT id, name, username, email, password, token, verified_at, created_at, updated_at FROM users WHERE token = ?',
+            [token]
+        );
+        if (!user[0][0]) {
+            return null;
+        }
+        return user[0][0];
+    }
+
     static async checkToken({ token }) {
         const user = await connection.promise().query(
             'SELECT token FROM users WHERE token = ?',

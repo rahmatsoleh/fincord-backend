@@ -31,9 +31,27 @@ class Authentication {
         }).code(201);
     }
 
-    static async login(request, h) {
-        const { username, email, password } = request.payload;
+    static async login(request, h) {        
+        if (request.payload.token) {
+            const user = await User.AuthWithToken({ token: request.payload.token });
+            if (!user) {
+                return h.response({
+                    error: 'Invalid token'
+                }).code(400);
+            }
 
+            // update token
+            const newToken = await User.setToken({ token: request.payload.token });
+
+            return h.response({
+                message: 'Login successfully',
+                username: user.username,
+                email: user.email,
+                token: newToken
+            }).code(200);
+        }
+        
+        const { username, email, password } = request.payload;
         let user = null;
 
         if (username) {
@@ -64,28 +82,44 @@ class Authentication {
             }
         }
     
+        // update token
+        const newToken = await User.setToken({ token: user.token });
+
         return h.response({
             message: 'Login successfully',
             username: user.username,
             email: user.email,
             token: user.token
         }).code(200);
+    }
 
-        // check password
-        // if (!bcrypt.compareSync(password, user.password)) {
-        //     return h.response({
-        //         error: 'password is incorrect'
-        //     }).code(400);
-        // }
+    // login with token
+    // static async loginWithToken(request, h) {
+    //     const { token } = request.headers;
+        
+    //     const user = await User.AuthWithToken({ token });
+    //     if (!user) {
+    //         return h.response({
+    //             error: 'token is wrong'
+    //         }).code(400);
+    //     }
+    // }
 
-        // const token = await User.setToken({ id: user.id });
+    // check token, if same refresh token, update token, if not, return error
+    static async refreshToken(request, h){
+        const { token } = request.headers;
+        const user = await User.checkToken({ token });
+        if (!user) {
+            return h.response({
+                error: 'token is wrong'
+            }).code(400);
+        }
 
-        // return h.response({
-        //     message: 'User logged in successfully',
-        //     username: user.username,
-        //     email: user.email,
-        //     token: token
-        // });
+        const newToken = await User.setToken({ token });
+        return h.response({
+            message: 'Token updated',
+            token: newToken
+        }).code(200);
     }
 
     static async logout(request, h) {
