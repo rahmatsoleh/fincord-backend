@@ -1,4 +1,5 @@
 const Authentication = require('./controllers/Authentication.js');
+
 const routes = [
     {
         method: 'GET',
@@ -10,7 +11,7 @@ const routes = [
     {
         method: 'POST',
         path: '/api/register',
-        handler: Authentication.register
+        handler: Authentication.register,
     },
     {
         method: 'POST',
@@ -32,6 +33,16 @@ const routes = [
         path: '/verify/{token}',
         handler: Authentication.verify
     },
+    {
+        method: 'POST',
+        path: '/api/forgotpassword',
+        handler: Authentication.forgotPassword
+    },
+    {
+        method: 'POST',
+        path: '/api/reset/{token}',
+        handler: Authentication.resetPassword
+    }
 ];
 
 module.exports = routes;

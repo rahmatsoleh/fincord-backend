@@ -48,6 +48,12 @@ class User {
         if (!bcrypt.compareSync(password, user[0][0].password)) {
             return null;
         }
+
+        const opt = {id: user[0][0].id};
+        console.log('old token: ', user[0][0].token);
+        user[0][0].token = await this.setToken(opt);
+        console.log('user:',user[0][0].token);
+
         return user[0][0];
     }
 
@@ -62,6 +68,12 @@ class User {
         if (!bcrypt.compareSync(password, user[0][0].password)) {
             return null;
         }
+
+        const opt = {id: user[0][0].id};
+        console.log('old token: ', user[0][0].token);
+        user[0][0].token = await this.setToken(opt);
+        console.log('user:',user[0][0].token);
+
         return user[0][0];
     }
 
@@ -73,6 +85,12 @@ class User {
         if (!user[0][0]) {
             return null;
         }
+
+        const opt = {id: user[0][0].id};
+        console.log('old token: ', user[0][0].token);
+        user[0][0].token = await this.setToken(opt);
+        console.log('user:',user[0][0].token);
+
         return user[0][0];
     }
 

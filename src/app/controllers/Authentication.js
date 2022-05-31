@@ -40,14 +40,11 @@ class Authentication {
                 }).code(400);
             }
 
-            // update token
-            const newToken = await User.setToken({ token: request.payload.token });
-
             return h.response({
                 message: 'Login successfully',
                 username: user.username,
                 email: user.email,
-                token: newToken
+                token: user.token
             }).code(200);
         }
         
@@ -81,10 +78,8 @@ class Authentication {
                 }).code(400);
             }
         }
-    
-        // update token
-        const newToken = await User.setToken({ token: user.token });
 
+        // console.log(user.token);
         return h.response({
             message: 'Login successfully',
             username: user.username,
@@ -92,18 +87,6 @@ class Authentication {
             token: user.token
         }).code(200);
     }
-
-    // login with token
-    // static async loginWithToken(request, h) {
-    //     const { token } = request.headers;
-        
-    //     const user = await User.AuthWithToken({ token });
-    //     if (!user) {
-    //         return h.response({
-    //             error: 'token is wrong'
-    //         }).code(400);
-    //     }
-    // }
 
     // check token, if same refresh token, update token, if not, return error
     static async refreshToken(request, h){
@@ -210,6 +193,73 @@ class Authentication {
         return h.response({
             message: 'Email verified'
         }).code(200);
+    }
+    
+    static async forgotPassword(request, h){
+        const { email } = request.payload;
+
+        // getUser
+        const user = await User.getUser({ email: email });
+
+        if (!user) {
+            return h.response({
+                error: 'email is invalid'
+            }).code(400);
+        }
+
+        // set token
+        const token = await User.setToken({ id: user.id });
+
+        await sendEmail({
+            to: email,
+            subject: 'Reset Password',
+            message: `
+                <h1>Reset Password</h1>
+                <p>
+                    Please click the link below to reset your password.
+                </p>
+                <a href="${dotenv.config().parsed.APP_FULLHOST}/reset/${token}">Reset Password</a>
+                <p>
+                    or copy and paste this link into your browser:
+                </p>
+                <p>
+                    ${dotenv.config().parsed.APP_FULLHOST}/reset/${token}
+                </p>
+            `
+        });
+
+        return h.response({
+            message: 'Reset password email sent',
+            token: token
+        });
+    }
+
+    static async resetPassword(request, h){
+        const { token } = request.params;
+        const { password } = request.payload;
+
+
+        // getUser
+        const user = await User.checkToken({ token: token });
+
+        if (!user) {
+            return h.response({
+                error: 'token is invalid or expired'
+            }).code(400);
+        }
+
+        // set password
+        const updatedUser = await User.update({
+            token: token,
+            password: bcrypt.hashSync(password, 10)
+        });
+
+        // unset token
+        await User.unsetToken({ token: token });
+
+        return h.response({
+            message: 'Password updated'
+        });
     }
 }
 
