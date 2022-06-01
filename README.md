@@ -59,9 +59,6 @@ Hello, World!
 >   name: String,
 >   username: String,
 >   email: Email String,
->   password: String,
->   address: String,
->   phone: String
 > }
 > ```
 >Success:
