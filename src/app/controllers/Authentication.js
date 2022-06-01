@@ -20,8 +20,6 @@ class Authentication {
             username,
             email,
             password: bcrypt.hashSync(password, 10),
-            phone,
-            address
         });
         return h.response({ 
             message: 'User created successfully',
