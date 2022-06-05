@@ -142,6 +142,21 @@ class User {
         );
         return user;
     }
+
+    static async getAllUser(){
+        const user = await connection.promise().query(
+            'SELECT * FROM users'
+        );
+        return user[0];
+    }
+
+    static async getUserById({ id }) {
+        const user = await connection.promise().query(
+            'SELECT * FROM users WHERE id = ?',
+            [id]
+        );
+        return user[0][0];
+    }
 }
 
 module.exports = User;

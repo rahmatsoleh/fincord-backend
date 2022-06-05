@@ -1,4 +1,5 @@
 const Authentication = require('./controllers/Authentication.js');
+const DataController = require('./controllers/DataController.js');
 
 const routes = [
     {
@@ -42,6 +43,11 @@ const routes = [
         method: 'POST',
         path: '/api/reset/{token}',
         handler: Authentication.resetPassword
+    },
+    {
+        method: 'GET',
+        path: '/api/getalldata',
+        handler: DataController.whereAll
     }
 ];
 

@@ -2,7 +2,7 @@
   "name": "fincord-back",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "src/index.js",
   "scripts": {
     "start": "npx pm2 start src/index.js --name fincord-back --interpreter node --watch",
     "status": "npx pm2 status",
@@ -12,6 +12,7 @@
     "migrate:rollback": "knex migrate:rollback",
     "migrate:up": "knex migrate:up",
     "migrate:down": "knex migrate:down",
+    "db:seed": "knex seed:run --specific=DatabaseSeeder.js",
     "lint": "eslint ./src"
   },
   "repository": {
@@ -35,6 +36,7 @@
     "@hapi/hapi": "^20.2.2",
     "bcrypt": "^5.0.1",
     "dotenv": "^16.0.1",
+    "faker": "^5.5.3",
     "joi": "^17.6.0",
     "jsonwebtoken": "^8.5.1",
     "knex": "^2.0.0",

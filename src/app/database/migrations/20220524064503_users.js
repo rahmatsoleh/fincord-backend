@@ -20,8 +20,7 @@ exports.up = function(knex) {
         table.unique('phone');
         
         // default value for created_at and updated_at
-        table.timestamp('created_at').defaultTo(knex.fn.now());
-        table.timestamp('updated_at').defaultTo(knex.fn.now());
+        table.timestamps(true, true);
     });
 };
 

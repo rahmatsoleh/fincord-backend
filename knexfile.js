@@ -17,6 +17,9 @@ module.exports = {
         migrations: {
             directory: './src/app/database/migrations'
         },
+        seeds: {
+            directory: './src/app/database/seeder'
+        }
     },
 
     staging: {
