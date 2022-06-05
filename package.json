@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/Dzyfhuba/fincord-back#readme",
   "devDependencies": {
+    "@faker-js/faker": "^7.1.0",
     "eslint": "^8.13.0",
     "nodemon": "^2.0.15"
   },
@@ -36,7 +37,6 @@
     "@hapi/hapi": "^20.2.2",
     "bcrypt": "^5.0.1",
     "dotenv": "^16.0.1",
-    "faker": "^5.5.3",
     "joi": "^17.6.0",
     "jsonwebtoken": "^8.5.1",
     "knex": "^2.0.0",

@@ -1,7 +1,8 @@
 const nanoid = require('nanoid');
-const faker = require('faker');
+const {faker} = require('@faker-js/faker');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+faker.setLocale('id_ID');
 /**
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> } 
@@ -27,7 +28,7 @@ exports.seed = async function(knex) {
         const data = [
             {
                 id: id,
-                name: faker.name.findName(),
+                name: faker.name.firstName(),
                 username: faker.internet.userName(),
                 email: faker.internet.email(),
                 password: bcrypt.hashSync('12345678', 10),

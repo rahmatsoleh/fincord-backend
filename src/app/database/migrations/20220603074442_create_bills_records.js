@@ -14,6 +14,7 @@ exports.up = function(knex) {
         table.foreign('record_id').references('id').inTable('records');
         table.foreign('user_id').references('id').inTable('users');
 
+        table.dateTime('deleted_at').nullable();
         table.timestamps(true, true);
     });
 };

@@ -5,6 +5,7 @@
 exports.up = function(knex) {
     return knex.schema.createTable('categories_default', (table) => {
         table.bigIncrements('id').primary();
+        table.enum('type', ['income', 'expense']).notNullable();
         table.string('name').notNullable();
         table.timestamps(true, true);
     });

@@ -10,6 +10,10 @@ exports.up = function(knex) {
         table.string('note').nullable();
         table.bigInteger('amount').notNullable();
         table.string('category').nullable();
+
+        // soft delete
+        table.dateTime('deleted_at').nullable();
+
         table.timestamps(true, true);
     });
 };

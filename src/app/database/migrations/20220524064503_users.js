@@ -15,10 +15,14 @@ exports.up = function(knex) {
         table.string('address').nullable();
         table.string('phone').nullable();
 
+        // last login
+        table.dateTime('last_login').nullable();
+        
         table.unique('username');
         table.unique('email');
         table.unique('phone');
         
+        table.dateTime('deleted_at').nullable();
         // default value for created_at and updated_at
         table.timestamps(true, true);
     });

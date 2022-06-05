@@ -10,6 +10,7 @@ exports.up = function(knex) {
         table.string('user_id').notNullable().references('id').inTable('users');
         table.enum('status', ['done', 'due', 'cancled']).notNullable();
 
+        table.dateTime('deleted_at').nullable();
         table.timestamps(true, true);
     });
 };
