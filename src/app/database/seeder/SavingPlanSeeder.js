@@ -12,17 +12,9 @@ exports.seed = async function(knex) {
 
     const users = await User.getAllUser();
     const type = ['yearly', 'monthly', 'weekly', 'daily'];
-    const status = ['active', 'inactive'];
     for (let i = 0; i < 100; i++) {
         for (let j = 0; j < 5; j++) {
             const user = users[i];
-            const save = [];
-            for (let k = 0; k < Math.floor(Math.random() * 10) + 1; k++) {
-                save.push({
-                    amount: Math.floor(Math.random() * 1000000) + 1000000,
-                    date: faker.date.soon(),
-                });
-            }
 
             await knex('saving_plans').insert([
                 {
@@ -30,10 +22,8 @@ exports.seed = async function(knex) {
                     name: faker.word.noun(),
                     description: faker.lorem.paragraph(),
                     goal_amount: Math.floor(Math.random() * 1000000) + 1000000,
-                    save: JSON.stringify(save),
                     due_date: faker.date.future(),
                     type: type[Math.floor(Math.random() * type.length)],
-                    status: status[Math.floor(Math.random() * status.length)],
                 }
             ]);
         }

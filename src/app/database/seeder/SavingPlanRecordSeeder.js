@@ -1,5 +1,6 @@
-const User = require('../../app/models/User');
-const faker = require('@faker-js/faker');
+const User = require('../../models/User');
+const Saving = require('../../models/Saving');
+const {faker} = require('@faker-js/faker');
 
 /**
  * @param { import("knex").Knex } knex
@@ -10,21 +11,29 @@ exports.seed = async function(knex) {
     await knex('saving_records').del();
 
     const users = await User.getAllUser();
-    const type = ['yearly', 'monthly', 'weekly', 'daily'];
-    const status = ['active', 'inactive'];
     for (let i = 0; i < 100; i++) {
         for (let j = 0; j < 5; j++) {
             const user = users[i];
-            await knex('bill_records').insert([
-                {
-                    user_id: users[i].id,
-                    name: faker.word.noun(),
-                    description: faker.lorem.paragraph(),
-                    goal_amount: Math.floor(Math.random() * 1000000) + 1000000,
-                    type: type[Math.floor(Math.random() * type.length)],
-                    status: status[Math.floor(Math.random() * status.length)],
-                }
-            ]);
+
+            const savings = await Saving.getAllById(user.id);
+
+            const save = [];
+            for (let k = 0; k < Math.floor(Math.random() * 10) + 1; k++) {
+                save.push({
+                    amount: Math.floor(Math.random() * 1000000) + 1000000,
+                    date: faker.date.soon(),
+                });
+            }
+
+            savings.forEach(async (saving) => {
+                await knex('saving_records').insert([
+                    {
+                        user_id: user.id,
+                        saving_plan_id: saving.id,
+                        save: JSON.stringify(save),
+                    }
+                ]);
+            });
         }
     }
 };
