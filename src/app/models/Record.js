@@ -6,7 +6,6 @@ class Record{
             'SELECT * FROM records WHERE user_id = ?',
             [id]
         );
-        console.log(records);
         return records[0];
     }
 }

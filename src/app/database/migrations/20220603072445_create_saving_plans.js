@@ -9,6 +9,7 @@ exports.up = function(knex) {
         table.string('name').notNullable();
         table.text('description').nullable();
         table.bigInteger('goal_amount').notNullable();
+        table.longText('save').nullable();
         table.date('due_date').notNullable();
         table.enum('type', ['yearly', 'monthly', 'weekly', 'daily']).nullable();
         table.enum('status', ['active', 'inactive']).notNullable();

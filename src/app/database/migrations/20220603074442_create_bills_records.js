@@ -8,6 +8,8 @@ exports.up = function(knex) {
         table.bigInteger('bill_plan_id').unsigned().notNullable();
         table.bigInteger('record_id').unsigned().notNullable();
         table.string('user_id').notNullable();
+        table.string('name').notNullable();
+        table.text('description').nullable();
         table.enum('status', ['done', 'due', 'cancled']).notNullable();
 
         table.foreign('bill_plan_id').references('id').inTable('bills');

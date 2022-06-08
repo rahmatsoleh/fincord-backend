@@ -1,13 +1,27 @@
+const { faker } = require('@faker-js/faker');
+const User = require('../../models/User');
+
 /**
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> } 
  */
 exports.seed = async function(knex) {
-  // Deletes ALL existing entries
-  await knex('table_name').del()
-  await knex('table_name').insert([
-    {id: 1, colName: 'rowValue1'},
-    {id: 2, colName: 'rowValue2'},
-    {id: 3, colName: 'rowValue3'}
-  ]);
+    // Deletes ALL existing entries
+    await knex('saving_plans').del();
+
+    const users = await User.getAllUser();
+    const status = ['active', 'inactive'];
+    for (let i = 0; i < 100; i++) {
+        for (let j = 0; j < 5; j++) {
+            const user = users[i];
+            await knex('bill_records').insert([
+                {
+                    user_id: users[i].id,
+                    name: faker.word.noun(),
+                    description: faker.lorem.paragraph(),
+                    status: status[Math.floor(Math.random() * status.length)],
+                }
+            ]);
+        }
+    }
 };

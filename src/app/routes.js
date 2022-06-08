@@ -48,7 +48,7 @@ const routes = [
         method: 'GET',
         path: '/api/getalldata',
         handler: DataController.whereAll
-    }
+    },
 ];
 
 module.exports = routes;
