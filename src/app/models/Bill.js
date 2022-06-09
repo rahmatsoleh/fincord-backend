@@ -1,7 +1,7 @@
 const connection = require('../config/database');
 
 class Bill{
-    static async getAllById(id){
+    static async getAllByUserId(id){
         const Bills = await connection.promise().query(
             'SELECT * FROM bills WHERE user_id = ?',
             [id]

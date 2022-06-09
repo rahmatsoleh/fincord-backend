@@ -15,7 +15,7 @@ exports.seed = async function(knex) {
         for (let j = 0; j < 5; j++) {
             const user = users[i];
 
-            const savings = await Saving.getAllById(user.id);
+            const savings = await Saving.getAllByUserId(user.id);
 
             const save = [];
             for (let k = 0; k < Math.floor(Math.random() * 10) + 1; k++) {

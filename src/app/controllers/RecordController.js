@@ -1,9 +1,6 @@
-const Bill = require('../models/Bill');
-const Record = require('../models/Record');
-const Saving = require('../models/Saving');
-const SavingRecord = require('../models/SavingRecord');
+const Record = require("../models/Record");
 
-const DataController = {
+const RecordController = {
     whereAll: async (request, h) => {
         const { query } = request;
         // need id of user
@@ -30,6 +27,38 @@ const DataController = {
             }
         }).code(200);
     },
+    
+    whereIncome: async (request, h) => {
+        const { query } = request;
+        // need id of user
+
+        const records = await Record.getIncome(query.id);
+        
+        return h.response({
+            error: false,
+            statusCode: 200,
+            message: 'Success',
+            data: {
+                records: records
+            }
+        }).code(200);
+    },
+
+    whereExpense: async (request, h) => {
+        const { query } = request;
+        // need id of user
+
+        const records = await Record.getExpense(query.id);
+        
+        return h.response({
+            error: false,
+            statusCode: 200,
+            message: 'Success',
+            data: {
+                records: records
+            }
+        }).code(200);
+    }
 };
 
-module.exports = DataController;
+module.exports = RecordController;

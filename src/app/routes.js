@@ -1,5 +1,6 @@
 const Authentication = require('./controllers/Authentication');
 const DataController = require('./controllers/DataController');
+const RecordController = require('./controllers/RecordController');
 
 const routes = [
   {
@@ -46,6 +47,16 @@ const routes = [
     method: 'GET',
     path: '/api/getalldata',
     handler: DataController.whereAll,
+  },
+  {
+    method: 'GET',
+    path: '/api/getincome',
+    handler: RecordController.whereIncome,
+  },
+  {
+    method: 'GET',
+    path: '/api/getexpense',
+    handler: RecordController.whereExpense,
   },
 ];
 
