@@ -58,6 +58,16 @@ const routes = [
     path: '/api/getexpense',
     handler: RecordController.whereExpense,
   },
+  {
+    method: 'POST',
+    path: '/api/storeincome',
+    handler: RecordController.storeIncome,
+  },
+  {
+    method: 'POST',
+    path: '/api/storeexpense',
+    handler: RecordController.storeExpense,
+  }
 ];
 
 module.exports = routes;

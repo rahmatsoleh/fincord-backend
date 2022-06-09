@@ -58,6 +58,50 @@ const RecordController = {
                 records: records
             }
         }).code(200);
+    },
+
+    storeIncome: async (request, h) => {
+        const { payload } = request;
+        // need id of user
+
+        const records = await Record.create({
+            user_id: payload.user_id,
+            type: 'income',
+            amount: payload.amount,
+            note: payload.note,
+            category: payload.category
+        });
+        
+        return h.response({
+            error: false,
+            statusCode: 200,
+            message: 'Success',
+            data: {
+                income: records
+            }
+        }).code(200);
+    },
+    
+    storeExpense: async (request, h) => {
+        const { payload } = request;
+        // need id of user
+
+        const records = await Record.create({
+            user_id: payload.user_id,
+            type: 'expense',
+            amount: payload.amount,
+            note: payload.note,
+            category: payload.category
+        });
+
+        return h.response({
+            error: false,
+            statusCode: 200,
+            message: 'Success',
+            data: {
+                expense: records
+            }
+        }).code(200);
     }
 };
 

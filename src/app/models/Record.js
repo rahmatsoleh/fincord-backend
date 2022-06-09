@@ -23,20 +23,12 @@ class Record{
         return expenses[0];
     }
 
-    static async storeIncome({user_id, amount, note, category}){
+    static async create({user_id, type, amount, note, category}){
         const record = await connection.promise().query(
-            'INSERT INTO records (user_id, amount, note, category, type) VALUES (?, ?, ?, ?, ?)',
-            [user_id, amount, note, category, 'income']
+            'INSERT INTO records (user_id, type, amount, note, category) VALUES (?, ?, ?, ?, ?)',
+            [user_id, type, amount, note, category]
         );
-        return record;
-    }
-
-    static async storeExpense({user_id, amount, note, category}){
-        const record = await connection.promise().query(
-            'INSERT INTO records (user_id, amount, note, category, type) VALUES (?, ?, ?, ?, ?)',
-            [user_id, amount, note, category, 'expense']
-        );
-        return record;
+        return record[0];
     }
 }
 
