@@ -10,7 +10,7 @@ exports.seed = async function(knex) {
     // Deletes ALL existing entries
     await knex('saving_records').del();
 
-    const users = await User.getAllUser();
+    const users = await User.all();
     for (let i = 0; i < 100; i++) {
         for (let j = 0; j < 5; j++) {
             const user = users[i];

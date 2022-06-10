@@ -10,7 +10,7 @@ exports.seed = async function(knex) {
     // Deletes ALL existing entries
     await knex('saving_plans').del();
 
-    const users = await User.getAllUser();
+    const users = await User.all();
     const type = ['yearly', 'monthly', 'weekly', 'daily'];
     for (let i = 0; i < 100; i++) {
         for (let j = 0; j < 5; j++) {

@@ -1,4 +1,5 @@
 const Authentication = require('./controllers/Authentication');
+const CategoryController = require('./controllers/CategoryController');
 const DataController = require('./controllers/DataController');
 const RecordController = require('./controllers/RecordController');
 
@@ -67,7 +68,27 @@ const routes = [
     method: 'POST',
     path: '/api/storeexpense',
     handler: RecordController.storeExpense,
-  }
+  },
+  {
+    method: 'GET',
+    path: '/api/category/{type}',
+    handler: CategoryController.getCategoryByUserId,
+  },
+  {
+    method: 'POST',
+    path: '/api/category',
+    handler: CategoryController.store,
+  },
+  {
+    method: 'PUT',
+    path: '/api/category',
+    handler: CategoryController.update,
+  },
+  {
+    method: 'DELETE',
+    path: '/api/category',
+    handler: CategoryController.delete,
+  },
 ];
 
 module.exports = routes;

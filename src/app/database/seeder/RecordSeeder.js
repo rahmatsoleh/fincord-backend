@@ -35,7 +35,7 @@ exports.seed = async function(knex) {
         { type: 'expense', name: 'Transportasi' },
     ];
 
-    const users = await User.getAllUser();
+    const users = await User.all();
     for (let i = 0; i < 100; i++) {
         // every user have 10 records
         for (let j = 0; j < 20; j++) {

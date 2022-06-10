@@ -3,12 +3,11 @@
  * @returns { Promise<void> }
  */
 exports.up = function (knex) {
-  return knex.schema.createTable('saving_records', (table) => {
+  return knex.schema.createTable('categories', (table) => {
     table.bigIncrements('id').primary();
     table.string('user_id').notNullable().references('id').inTable('users');
-    table.bigInteger('saving_plan_id').unsigned().notNullable().references('id')
-      .inTable('saving_plans');
-    table.longText('save').nullable();
+    table.enum('type', ['income', 'expense']).notNullable();
+    table.string('name').notNullable();
     table.timestamps(true, true);
   });
 };
@@ -18,5 +17,5 @@ exports.up = function (knex) {
  * @returns { Promise<void> }
  */
 exports.down = function (knex) {
-  return knex.schema.dropTable('saving_records');
+  return knex.schema.dropTable('categories');
 };
