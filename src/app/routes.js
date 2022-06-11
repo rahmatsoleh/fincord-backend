@@ -2,6 +2,7 @@ const Authentication = require('./controllers/Authentication');
 const CategoryController = require('./controllers/CategoryController');
 const DataController = require('./controllers/DataController');
 const RecordController = require('./controllers/RecordController');
+const SavingController = require('./controllers/SavingController');
 
 const routes = [
   {
@@ -98,6 +99,26 @@ const routes = [
     method: 'DELETE',
     path: '/api/category',
     handler: CategoryController.delete,
+  },
+  {
+    method: 'GET',
+    path: '/api/saving',
+    handler: SavingController.get,
+  },
+  {
+    method: 'POST',
+    path: '/api/saving',
+    handler: SavingController.store,
+  },
+  {
+    method: 'PUT',
+    path: '/api/saving',
+    handler: SavingController.update,
+  },
+  {
+    method: 'DELETE',
+    path: '/api/saving',
+    handler: SavingController.delete,
   },
 ];
 
