@@ -29,17 +29,17 @@ class Category {
     id, name, user_id, type,
   }) {
     const category = await connection.promise().query(
-      'UPDATE categories SET name = ?, user_id = ?, type = ? WHERE id = ?',
+      'UPDATE categories SET name = ?, user_id = ?, type = ?, updated_at = now() WHERE id = ?',
       [name, user_id, type, id],
     );
     return category[0];
   }
 
-  static async delete({ id, type }) {
+  static async delete({ id }) {
     const category = await connection.promise().query(
-      'DELETE FROM categories WHERE id = ? AND type = ?',
-      [id, type],
-    );
+      'DELETE FROM categories WHERE id = ?',
+      [id],
+    ).catch((err) => console.log(err));
     return category[0];
   }
 }

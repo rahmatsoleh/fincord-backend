@@ -80,13 +80,11 @@ class CategoryController {
   }
 
   static async delete(request, h) {
-    const { type } = request.params;
-    const { id } = request.query;
-
+    const { id } = request.payload;
+    console.log(id);
     // id is the id of the category
     const category = await Category.delete({
       id,
-      type,
     });
 
     return h.response({
