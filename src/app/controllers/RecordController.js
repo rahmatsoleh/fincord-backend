@@ -92,6 +92,49 @@ const RecordController = {
       },
     }).code(200);
   },
+
+  update: async (request, h) => {
+    const { type } = request.params;
+    const { payload } = request;
+    // need id of user
+
+    // id is the id of the category
+    const records = await Record.update({
+      id: payload.id,
+      user_id: payload.user_id,
+      type,
+      amount: payload.amount,
+      note: payload.note,
+      category: payload.category,
+    });
+
+    return h.response({
+      error: false,
+      statusCode: 200,
+      message: 'Success',
+      data: {
+        records,
+      },
+    }).code(200);
+  },
+
+  delete: async (request, h) => {
+    const { id } = request.params;
+    console.log(id);
+    // id is the id of the category
+    const records = await Record.delete({
+      id,
+    });
+
+    return h.response({
+      error: false,
+      statusCode: 200,
+      message: 'Success',
+      data: {
+        records,
+      },
+    }).code(200);
+  },
 };
 
 module.exports = RecordController;

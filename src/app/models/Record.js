@@ -28,6 +28,24 @@ class Record {
     );
     return record[0];
   }
+
+  static async update({
+    id, user_id, type, amount, note, category,
+  }) {
+    const record = await connection.promise().query(
+      'UPDATE records SET user_id = ?, type = ?, amount = ?, note = ?, category = ?, updated_at = now() WHERE id = ?',
+      [user_id, type, amount, note, category, id],
+    ).catch((err) => console.log(err));
+    return record[0];
+  }
+
+  static async delete({ id }) {
+    const record = await connection.promise().query(
+      'DELETE FROM records WHERE id = ?',
+      [id],
+    ).catch((err) => console.log(err));
+    return record[0];
+  }
 }
 
 module.exports = Record;

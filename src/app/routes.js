@@ -70,6 +70,16 @@ const routes = [
     handler: RecordController.storeExpense,
   },
   {
+    method: 'PUT',
+    path: '/api/record/{type}',
+    handler: RecordController.update,
+  },
+  {
+    method: 'DELETE',
+    path: '/api/record/{id}',
+    handler: RecordController.delete,
+  },
+  {
     method: 'GET',
     path: '/api/category/{type}',
     handler: CategoryController.getCategoryByUserId,
