@@ -18,6 +18,8 @@
         "camelcase": "off",
         // no extraneous module
         "import/no-extraneous-dependencies": "off",
-        "func-names": "off"
+        "func-names": "off",
+        "no-plusplus": "off",
+        "no-await-in-loop": "off"
     }
 }

@@ -1,11 +1,11 @@
 const Saving = require('../models/Saving');
 
 const SavingController = {
-  get: async (request, h) => {
+  all: async (request, h) => {
     const { query } = request;
     // need id of user
 
-    const savings = await Saving.getAllByUserId(query.id);
+    const savings = await Saving.all(query.id);
 
     return h.response({
       error: false,
@@ -15,6 +15,21 @@ const SavingController = {
         savings,
       },
     });
+  },
+
+  get: async (request, h) => {
+    const { id } = request.params;
+
+    const saving = await Saving.get(id);
+
+    return h.response({
+      error: false,
+      statusCode: 200,
+      message: 'success',
+      data: {
+        saving,
+      },
+    }).code(200);
   },
 
   store: async (request, h) => {
@@ -65,10 +80,9 @@ const SavingController = {
   },
 
   delete: async (request, h) => {
-    const { query } = request;
-    // need id of user
+    const { id } = request.params;
 
-    const saving = await Saving.delete(query.id);
+    const saving = await Saving.delete(id);
 
     return h.response({
       error: false,

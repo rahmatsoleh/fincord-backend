@@ -3,6 +3,7 @@ const CategoryController = require('./controllers/CategoryController');
 const DataController = require('./controllers/DataController');
 const RecordController = require('./controllers/RecordController');
 const SavingController = require('./controllers/SavingController');
+const SavingRecordController = require('./controllers/SavingRecordController');
 
 const routes = [
   {
@@ -103,6 +104,11 @@ const routes = [
   {
     method: 'GET',
     path: '/api/saving',
+    handler: SavingController.all,
+  },
+  {
+    method: 'GET',
+    path: '/api/saving/{id}',
     handler: SavingController.get,
   },
   {
@@ -117,8 +123,18 @@ const routes = [
   },
   {
     method: 'DELETE',
-    path: '/api/saving',
+    path: '/api/saving/{id}',
     handler: SavingController.delete,
+  },
+  {
+    method: 'GET',
+    path: '/api/savingrecord',
+    handler: SavingRecordController.all,
+  },
+  {
+    method: 'GET',
+    path: '/api/savingrecord/{id}',
+    handler: SavingRecordController.get,
   },
 ];
 
