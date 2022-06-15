@@ -44,6 +44,14 @@ class SavingRecord {
     );
     return saving_record[0];
   }
+
+  static async delete(id) {
+    const saving_record = await connection.promise().query(
+      'DELETE FROM saving_records WHERE id = ?',
+      [id],
+    );
+    return saving_record[0];
+  }
 }
 
 module.exports = SavingRecord;

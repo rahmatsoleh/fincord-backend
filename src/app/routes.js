@@ -136,6 +136,11 @@ const routes = [
     path: '/api/savingrecord/{id}',
     handler: SavingRecordController.get,
   },
+  {
+    method: 'POST',
+    path: '/api/savingrecord',
+    handler: SavingRecordController.store,
+  },
 ];
 
 module.exports = routes;

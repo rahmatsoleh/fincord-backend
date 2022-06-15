@@ -25,6 +25,9 @@ const SavingRecordController = {
     // decode json savingRecord.save
     savingRecord.save = JSON.parse(savingRecord.save);
 
+    // console log current datetime
+    // console.log(new Date());
+
     return h.response({
       error: false,
       statusCode: 200,
@@ -42,19 +45,56 @@ const SavingRecordController = {
     const savingRecord = await SavingRecord.getBySavingPlanId(payload.saving_plan_id);
 
     if (savingRecord.length === 0) {
-      await SavingRecord.create([
-        payload.user_id,
-        payload.saving_plan_id,
-        payload.save,
-      ]);
+      const save = [{
+        // amount: payload.save, to int
+        amount: parseInt(payload.save, 10),
+        date: new Date(),
+      }];
+
+      await SavingRecord.create({
+        user_id: payload.user_id,
+        saving_plan_id: payload.saving_plan_id,
+        save: JSON.stringify(save),
+      });
     } else {
+      const save_decode = JSON.parse(savingRecord[0].save);
+      const save = {
+        // amount: payload.save, to int
+        amount: parseInt(payload.save, 10),
+        date: new Date(),
+      };
+      console.log(save);
+
+      save_decode.push(save);
+      console.log(save_decode);
+
       await SavingRecord.update({
         id: savingRecord[0].id,
         user_id: payload.user_id,
         saving_plan_id: payload.saving_plan_id,
-        save: payload.save,
+        save: JSON.stringify(save_decode),
       });
     }
+    return h.response({
+      error: false,
+      statusCode: 200,
+      message: 'success',
+      data: {
+        savingRecord: savingRecord[0],
+      },
+    }).code(200);
+  },
+
+  delete: async (request, h) => {
+    const { id } = request.params;
+
+    await SavingRecord.delete(id);
+
+    return h.response({
+      error: false,
+      statusCode: 200,
+      message: 'success',
+    }).code(200);
   },
 };
 
