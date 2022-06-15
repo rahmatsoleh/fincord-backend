@@ -8,16 +8,16 @@ const DataController = {
     const { query } = request;
     // need id of user
 
-    const records = await Record.getAllByUserId(query.id);
-    const savings = await Saving.getAllByUserId(query.id);
-    const bills = await Bill.getAllByUserId(query.id);
-    const saving_records = await SavingRecord.getAllByUserId(query.id);
+    const records = await Record.all(query.id);
+    const savings = await Saving.all(query.id);
+    const bills = await Bill.all(query.id);
+    const saving_records = await SavingRecord.all(query.id);
 
     // decode json saving save
-    const saving_records_decode = saving_records.map((saving_record) => {
-      const saving_record_decode = JSON.parse(saving_record.saving_record);
-      return saving_record_decode;
-    });
+    const saving_records_decode = saving_records.map((saving_record) => ({
+      ...saving_record,
+      save: JSON.parse(saving_record.save),
+    }));
 
     return h.response({
       error: false,

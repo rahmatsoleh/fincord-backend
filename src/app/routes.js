@@ -4,6 +4,7 @@ const DataController = require('./controllers/DataController');
 const RecordController = require('./controllers/RecordController');
 const SavingController = require('./controllers/SavingController');
 const SavingRecordController = require('./controllers/SavingRecordController');
+const BillController = require('./controllers/BillController');
 
 const routes = [
   {
@@ -140,6 +141,31 @@ const routes = [
     method: 'POST',
     path: '/api/savingrecord',
     handler: SavingRecordController.store,
+  },
+  {
+    method: 'GET',
+    path: '/api/bill',
+    handler: BillController.all,
+  },
+  {
+    method: 'GET',
+    path: '/api/bill/{id}',
+    handler: BillController.get,
+  },
+  {
+    method: 'POST',
+    path: '/api/bill',
+    handler: BillController.store,
+  },
+  {
+    method: 'PUT',
+    path: '/api/bill',
+    handler: BillController.update,
+  },
+  {
+    method: 'DELETE',
+    path: '/api/bill/{id}',
+    handler: BillController.delete,
   },
 ];
 
