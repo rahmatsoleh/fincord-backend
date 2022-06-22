@@ -56,8 +56,8 @@ const RecordController = {
     const records = await Record.create({
       user_id: payload.user_id,
       type: 'income',
-      amount: payload.amount,
-      note: payload.note,
+      amount: payload.count,
+      note: payload.description,
       category: payload.category,
     });
 
