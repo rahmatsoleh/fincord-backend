@@ -28,12 +28,13 @@ class Category {
   }
 
   static async update({
-    id, name, user_id, type, limited,
+    id, name, limited = 0,
   }) {
     const category = await connection.promise().query(
-      'UPDATE categories SET name = ?, user_id = ?, type = ?, limited = ?, updated_at = now() WHERE id = ?',
-      [name, user_id, type, limited, id],
+      'UPDATE categories SET name = ?, limited = ?, updated_at = NOW() WHERE id = ?',
+      [name, limited, id],
     );
+    console.log(category[0]);
     return category[0];
   }
 
