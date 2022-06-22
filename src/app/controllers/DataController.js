@@ -6,6 +6,7 @@ const SavingRecord = require('../models/SavingRecord');
 const DataController = {
   whereAll: async (request, h) => {
     const { query } = request;
+    console.log(query);
     // need id of user
 
     const records = await Record.all(query.id);

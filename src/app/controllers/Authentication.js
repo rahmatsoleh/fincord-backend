@@ -2,6 +2,8 @@ const bcrypt = require('bcrypt');
 const dotenv = require('dotenv');
 const User = require('../models/User');
 const sendEmail = require('../config/smtp');
+const CategoryDefault = require('../models/CategoryDefault');
+const Category = require('../models/Category');
 
 class Authentication {
   static async register(request, h) {
@@ -24,12 +26,22 @@ class Authentication {
       email,
       password: bcrypt.hashSync(password, 10),
     });
+
+    // get category default
+    const categoryDefault = await CategoryDefault.all();
+
+    categoryDefault.forEach(async (category) => {
+      await Category.create({
+        user_id: user.id,
+        name: category.name,
+        type: category.type,
+      });
+    });
+
     return h.response({
       error: false,
       message: 'User created successfully',
-      username: user.username,
-      email: user.email,
-      token: user.token,
+      data: user,
     }).code(201);
   }
 
@@ -46,9 +58,7 @@ class Authentication {
       return h.response({
         error: false,
         message: 'Login successfully',
-        username: user.username,
-        email: user.email,
-        token: user.token,
+        data: user,
       }).code(200);
     }
 
@@ -63,21 +73,10 @@ class Authentication {
           message: 'username or password is wrong',
         }).code(400);
       }
-
-      // if has token
-      if (user.token) {
-        return h.response({
-          error: false,
-          message: 'User already logged in',
-          username: user.username,
-          email: user.email,
-          token: user.token,
-        }).code(200);
-      }
     }
-
     if (email) {
       user = await User.authWithEmail({ email, password });
+      // console.log('asd');
       if (!user) {
         return h.response({
           error: true,
@@ -90,15 +89,16 @@ class Authentication {
     return h.response({
       error: false,
       message: 'Login successfully',
-      username: user.username,
+      id: user.id,
       email: user.email,
-      token: user.token,
+      password,
+      data: user,
     }).code(200);
   }
 
   // check token, if same refresh token, update token, if not, return error
   static async refreshToken(request, h) {
-    const { token } = request.headers;
+    const token = request.headers['x-token'];
     const user = await User.checkToken({ token });
     if (!user) {
       return h.response({
@@ -112,13 +112,17 @@ class Authentication {
       error: false,
       message: 'Token updated',
       token: newToken,
+      id: user.id,
+      email: user.email,
+      password: user.password,
+      data: user,
     }).code(200);
   }
 
   static async logout(request, h) {
-    // check token
-    const { token } = request.headers;
-
+    // get x-token from header
+    const token = request.headers['x-token'];
+    console.log(token);
     // getUser
     const user = await User.checkToken({ token });
     if (!user) {
@@ -134,7 +138,7 @@ class Authentication {
   }
 
   static async sendVerification(request, h) {
-    const { token } = request.headers;
+    const token = request.headers['x-token'];
 
     // getUser
     const user = await User.getUser({ token });
@@ -178,7 +182,7 @@ class Authentication {
   }
 
   static async verify(request, h) {
-    const { token } = request.params;
+    const token = request.params;
 
     // getUser
     const user = await User.getUser({ token });
@@ -244,7 +248,7 @@ class Authentication {
   }
 
   static async resetPassword(request, h) {
-    const { token } = request.params;
+    const token = request.params;
     const { password } = request.payload;
 
     // getUser

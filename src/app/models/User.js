@@ -67,21 +67,21 @@ class User {
     if (!user[0][0]) {
       return null;
     }
+
+    console.log('password: ', user[0][0].password);
     if (!bcrypt.compareSync(password, user[0][0].password)) {
       return null;
     }
-
     const opt = { id: user[0][0].id };
     console.log('old token: ', user[0][0].token);
     user[0][0].token = await this.setToken(opt);
     console.log('user:', user[0][0].token);
-
     return user[0][0];
   }
 
   static async AuthWithToken({ token }) {
     const user = await connection.promise().query(
-      'SELECT id, name, username, email, password, token, verified_at, created_at, updated_at FROM users WHERE token = ?',
+      'SELECT id, name, username, email, token, verified_at, created_at, updated_at FROM users WHERE token = ?',
       [token],
     );
     if (!user[0][0]) {

@@ -45,6 +45,7 @@ class CategoryController {
       name: payload.name,
       user_id: payload.user_id,
       type: payload.type,
+      limited: payload.limited || 0,
     });
 
     return h.response({
@@ -67,6 +68,7 @@ class CategoryController {
       name: payload.name,
       user_id: payload.user_id,
       type: payload.type,
+      limited: payload.limited || 0,
     });
 
     return h.response({

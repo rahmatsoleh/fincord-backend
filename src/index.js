@@ -11,8 +11,16 @@ const init = async () => {
     port,
     host,
     routes: {
-      cors: true,
+      cors: {
+        origin: ['*'],
+        additionalHeaders: ['Accept-Language', 'Content-Type', 'X-Custom-Header', 'x-token'],
+      },
+      payload: {
+        multipart: true,
+      },
     },
+    // application/json
+
   });
 
   server.route(routes);

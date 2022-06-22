@@ -19,6 +19,7 @@ exports.seed = async function (knex) {
           user_id: user.id,
           type: t,
           name: category.name,
+          limited: category.limited,
         });
       });
     });

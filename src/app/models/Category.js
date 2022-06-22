@@ -17,20 +17,22 @@ class Category {
     return category[0];
   }
 
-  static async create({ name, user_id, type }) {
+  static async create({
+    name, user_id, type, limited,
+  }) {
     const category = await connection.promise().query(
-      'INSERT INTO categories (name, user_id, type) VALUES (?, ?, ?)',
-      [name, user_id, type],
+      'INSERT INTO categories (name, user_id, type, limited) VALUES (?, ?, ?, ?)',
+      [name, user_id, type, limited],
     );
     return category[0];
   }
 
   static async update({
-    id, name, user_id, type,
+    id, name, user_id, type, limited,
   }) {
     const category = await connection.promise().query(
-      'UPDATE categories SET name = ?, user_id = ?, type = ?, updated_at = now() WHERE id = ?',
-      [name, user_id, type, id],
+      'UPDATE categories SET name = ?, user_id = ?, type = ?, limited = ?, updated_at = now() WHERE id = ?',
+      [name, user_id, type, limited, id],
     );
     return category[0];
   }

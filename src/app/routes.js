@@ -21,6 +21,11 @@ const routes = [
     method: 'POST',
     path: '/api/login',
     handler: Authentication.login,
+    // options: {
+    //   payload: {
+    //     multipart: true,
+    //   },
+    // },
   },
   {
     method: 'GET',
