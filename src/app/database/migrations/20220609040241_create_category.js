@@ -8,6 +8,7 @@ exports.up = function (knex) {
     table.string('user_id').notNullable().references('id').inTable('users');
     table.enum('type', ['income', 'expense']).notNullable();
     table.string('name').notNullable();
+    table.bigInteger('limited').nullable().defaultTo(0);
     table.timestamps(true, true);
   });
 };
