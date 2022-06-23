@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const dotenv = require('dotenv');
+const { nanoid } = require('nanoid');
 const User = require('../models/User');
 const sendEmail = require('../config/smtp');
 const CategoryDefault = require('../models/CategoryDefault');
@@ -32,6 +33,7 @@ class Authentication {
 
     categoryDefault.forEach(async (category) => {
       await Category.create({
+        id: nanoid(),
         user_id: user.id,
         name: category.name,
         type: category.type,

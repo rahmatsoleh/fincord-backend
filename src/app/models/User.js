@@ -1,7 +1,7 @@
 const mysql = require('mysql2');
 const dotenv = require('dotenv');
 const bcrypt = require('bcrypt');
-const nanoid = require('nanoid');
+const { nanoid } = require('nanoid');
 const jwt = require('jsonwebtoken');
 const connection = require('../config/database');
 
