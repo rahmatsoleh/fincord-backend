@@ -4,7 +4,7 @@
  */
 exports.up = function (knex) {
   return knex.schema.createTable('bills', (table) => {
-    table.bigIncrements('id').primary();
+    table.string('id').primary();
     table.string('user_id').notNullable();
     table.string('name').notNullable();
     table.text('description').nullable();

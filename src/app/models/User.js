@@ -9,7 +9,7 @@ class User {
   static async create({
     name, username, email, password, phone, address,
   }) {
-    const id = nanoid.nanoid();
+    const id = nanoid();
     const token = jwt.sign({ id }, 'generated-key', { expiresIn: '7d' });
     connection.promise().query(
       'INSERT INTO users (id, name, username, email, password ,token, phone, address) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',

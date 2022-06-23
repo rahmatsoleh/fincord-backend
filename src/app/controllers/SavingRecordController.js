@@ -52,6 +52,7 @@ const SavingRecordController = {
       }];
 
       await SavingRecord.create({
+        id: payload.id,
         user_id: payload.user_id,
         saving_plan_id: payload.saving_plan_id,
         save: JSON.stringify(save),

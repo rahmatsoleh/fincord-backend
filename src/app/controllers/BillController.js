@@ -37,6 +37,7 @@ const BillController = {
     // need id of user
 
     const bill = await Bill.create({
+      id: payload.id,
       user_id: payload.user_id,
       name: payload.name,
       description: payload.description,

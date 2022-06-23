@@ -1,4 +1,5 @@
 const { faker } = require('@faker-js/faker');
+const { nanoid } = require('nanoid');
 const User = require('../../models/User');
 const Saving = require('../../models/Saving');
 
@@ -15,6 +16,7 @@ exports.seed = async function (knex) {
   console.log(savings);
   savings.forEach((saving) => {
     data.push({
+      id: nanoid(),
       user_id: saving.user_id,
       saving_plan_id: saving.id,
       save: JSON.stringify([{
