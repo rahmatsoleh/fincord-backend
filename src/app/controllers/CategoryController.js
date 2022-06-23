@@ -42,6 +42,7 @@ class CategoryController {
     // need id of user
 
     const category = await Category.create({
+      id: payload.id,
       name: payload.name,
       user_id: payload.user_id,
       type: payload.type,

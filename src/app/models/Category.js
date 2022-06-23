@@ -18,11 +18,11 @@ class Category {
   }
 
   static async create({
-    name, user_id, type, limited,
+    id, name, user_id, type, limited,
   }) {
     const category = await connection.promise().query(
-      'INSERT INTO categories (name, user_id, type, limited) VALUES (?, ?, ?, ?)',
-      [name, user_id, type, limited],
+      'INSERT INTO categories (id, name, user_id, type, limited) VALUES (?, ?, ?, ?, ?)',
+      [id, name, user_id, type, limited],
     );
     return category[0];
   }

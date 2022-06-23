@@ -18,11 +18,11 @@ class Bill {
   }
 
   static async create({
-    user_id, name, description, goal_amount, reminder, reminder_before, reminder_time, due_date, type = 'monthly', status = 'active',
+    id, user_id, name, description, goal_amount, reminder, reminder_before, reminder_time, due_date, type = 'monthly', status = 'active',
   }) {
     const bill = await connection.promise().query(
-      'INSERT INTO bills (user_id, name, description, goal_amount, reminder, reminder_before, reminder_time, due_date, type, status, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, now(), now())',
-      [user_id, name, description, goal_amount, reminder,
+      'INSERT INTO bills (id, user_id, name, description, goal_amount, reminder, reminder_before, reminder_time, due_date, type, status, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, now(), now())',
+      [id, user_id, name, description, goal_amount, reminder,
         reminder_before, reminder_time, due_date, type, status],
     ).catch((err) => console.log(err));
     return bill[0];

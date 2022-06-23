@@ -26,11 +26,11 @@ class SavingRecord {
   }
 
   static async create({
-    user_id, saving_plan_id, save,
+    id, user_id, saving_plan_id, save,
   }) {
     const saving_record = await connection.promise().query(
-      'INSERT INTO saving_records (user_id, saving_plan_id, save) VALUES (?, ?, ?)',
-      [user_id, saving_plan_id, save],
+      'INSERT INTO saving_records (id, user_id, saving_plan_id, save) VALUES (?, ?, ?, ?)',
+      [id, user_id, saving_plan_id, save],
     );
     return saving_record[0];
   }

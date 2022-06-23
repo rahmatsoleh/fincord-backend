@@ -37,6 +37,7 @@ const SavingController = {
     // need id of user
 
     const saving = await Saving.create({
+      id: payload.id,
       user_id: payload.user_id,
       name: payload.name,
       description: payload.description,
