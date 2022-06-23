@@ -1,4 +1,5 @@
 const { faker } = require('@faker-js/faker');
+const { nanoid } = require('nanoid');
 const User = require('../../models/User');
 
 faker.setLocale('id_ID');
@@ -19,6 +20,7 @@ exports.seed = async function (knex) {
     for (let j = 0; j < 20; j += 1) {
       const user = users[i];
       data.push({
+        id: nanoid(),
         user_id: user.id,
         name: faker.word.noun(),
         description: faker.lorem.paragraph(),

@@ -1,4 +1,4 @@
-const nanoid = require('nanoid');
+const { nanoid } = require('nanoid');
 const { faker } = require('@faker-js/faker');
 const User = require('../../models/User');
 
@@ -19,6 +19,7 @@ exports.seed = async function (knex) {
 
       await knex('saving_plans').insert([
         {
+          id: nanoid(),
           user_id: users[i].id,
           name: faker.word.noun(),
           description: faker.lorem.paragraph(),

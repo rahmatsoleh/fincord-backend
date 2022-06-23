@@ -1,3 +1,4 @@
+const { nanoid } = require('nanoid');
 const User = require('../../models/User');
 const CategoryDefault = require('../../models/CategoryDefault');
 /**
@@ -16,6 +17,7 @@ exports.seed = async function (knex) {
     await type.forEach(async (t) => {
       await categories_default.forEach(async (category) => {
         await knex('categories').insert({
+          id: nanoid(),
           user_id: user.id,
           type: t,
           name: category.name,
