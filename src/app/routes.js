@@ -93,6 +93,11 @@ const routes = [
     handler: CategoryController.getCategoryByUserId,
   },
   {
+    method: 'GET',
+    path: '/api/category',
+    handler: CategoryController.get,
+  },
+  {
     method: 'POST',
     path: '/api/category',
     handler: CategoryController.store,

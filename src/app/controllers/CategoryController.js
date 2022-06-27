@@ -37,6 +37,22 @@ class CategoryController {
     }).code(200);
   }
 
+  static async get(request, h) {
+    const { query } = request;
+    // need id of user
+
+    const category = await Category.find(query.id);
+
+    return h.response({
+      error: false,
+      statusCode: 200,
+      message: 'Success',
+      data: {
+        category,
+      },
+    });
+  }
+
   static async store(request, h) {
     const { payload } = request;
     // need id of user

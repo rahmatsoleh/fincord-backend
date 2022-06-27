@@ -17,6 +17,14 @@ class Category {
     return category[0];
   }
 
+  static async find(id) {
+    const category = await connection.promise().query(
+      'SELECT * FROM categories WHERE id = ?',
+      [id],
+    );
+    return category[0];
+  }
+
   static async create({
     id, name, user_id, type, limited,
   }) {

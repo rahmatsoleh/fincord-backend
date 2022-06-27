@@ -21,9 +21,10 @@ class Authentication {
       }).code(400);
     }
 
+    const usernameFromEmail = email.split('@')[0];
     const user = await User.create({
       name,
-      username,
+      username: username || usernameFromEmail,
       email,
       password: bcrypt.hashSync(password, 10),
     });
@@ -65,6 +66,7 @@ class Authentication {
     }
 
     const { username, email, password } = request.payload;
+    console.log('payload', request.payload);
     let user = null;
 
     if (username) {
@@ -78,7 +80,6 @@ class Authentication {
     }
     if (email) {
       user = await User.authWithEmail({ email, password });
-      // console.log('asd');
       if (!user) {
         return h.response({
           error: true,
@@ -87,7 +88,7 @@ class Authentication {
       }
     }
 
-    // console.log(user.token);
+    console.log(user);
     return h.response({
       error: false,
       message: 'Login successfully',
