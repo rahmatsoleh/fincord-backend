@@ -9,8 +9,8 @@ const NotificationTempSeeder = require('./NotificationTempSeeder');
 const NotificationSeeder = require('./NotificationSeeder');
 
 async function DatabaseSeeder(knex) {
-  await UserSeeder.seed(knex);
   await CategoryDefaultSeeder.seed(knex);
+  await UserSeeder.seed(knex);
   await CategorySeeder.seed(knex);
   await RecordSeeder.seed(knex);
   await SavingPlanSeeder.seed(knex);
