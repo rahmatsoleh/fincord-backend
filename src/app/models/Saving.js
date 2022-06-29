@@ -30,7 +30,7 @@ class Saving {
     const saving = await connection.promise().query(
       'INSERT INTO saving_plans (id, user_id, name, description, goal_amount, due_date, type) VALUES (?,?, ?, ?, ?, ?, ?)',
       [id, user_id, name, description, goal_amount, due_date, type],
-    );
+    ).catch((error) => console.log(error));
     return saving[0];
   }
 

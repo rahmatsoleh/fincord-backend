@@ -10,7 +10,7 @@ exports.up = function (knex) {
     table.string('note').nullable();
     table.bigInteger('amount').notNullable();
     table.string('category_id').references('id').inTable('categories');
-    table.date('date').notNullable();
+    table.date('date').nullable();
 
     // soft delete
     table.dateTime('deleted_at').nullable();

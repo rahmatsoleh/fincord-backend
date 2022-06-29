@@ -42,46 +42,54 @@ const SavingRecordController = {
     const { payload } = request;
     // need id of user
 
-    const savingRecord = await SavingRecord.getBySavingPlanId(payload.saving_plan_id);
+    // const savingRecord = await SavingRecord.getBySavingPlanId(payload.saving_plan_id);
 
-    if (savingRecord.length === 0) {
-      const save = [{
-        // amount: payload.save, to int
-        amount: parseInt(payload.save, 10),
-        date: new Date(),
-      }];
+    // if (savingRecord.length === 0 || savingRecord === null) {
+    //   const save = [{
+    //     // amount: payload.save, to int
+    //     amount: parseInt(payload.save, 10),
+    //     date: new Date().toISOString(),
+    //   }];
 
-      await SavingRecord.create({
-        id: payload.id,
-        user_id: payload.user_id,
-        saving_plan_id: payload.saving_plan_id,
-        save: JSON.stringify(save),
-      });
-    } else {
-      const save_decode = JSON.parse(savingRecord[0].save);
-      const save = {
-        // amount: payload.save, to int
-        amount: parseInt(payload.save, 10),
-        date: new Date(),
-      };
-      console.log(save);
+    //   await SavingRecord.create({
+    //     id: payload.id,
+    //     user_id: payload.user_id,
+    //     saving_plan_id: payload.saving_plan_id,
+    //     save: JSON.stringify(save),
+    //   });
+    // } else {
+    //   const save_decode = JSON.parse(savingRecord[0].save);
+    //   const save = {
+    //     // amount: payload.save, to int
+    //     amount: parseInt(payload.save, 10),
+    //     date: new Date(),
+    //   };
+    //   console.log(save);
 
-      save_decode.push(save);
-      console.log(save_decode);
+    //   save_decode.push(save);
+    //   console.log(save_decode);
 
-      await SavingRecord.update({
-        id: savingRecord[0].id,
-        user_id: payload.user_id,
-        saving_plan_id: payload.saving_plan_id,
-        save: JSON.stringify(save_decode),
-      });
-    }
+    // await SavingRecord.update({
+    //   id: savingRecord[0].id,
+    //   user_id: payload.user_id,
+    //   saving_plan_id: payload.saving_plan_id,
+    //   save: JSON.stringify(save_decode),
+    // });
+    // }
+    console.log(payload);
+    const savingRecord = await SavingRecord.create({
+      id: payload.id,
+      saving_plan_id: payload.saving_plan_id,
+      save: payload.save,
+      date: payload.date,
+    });
+
     return h.response({
       error: false,
       statusCode: 200,
       message: 'success',
       data: {
-        savingRecord: savingRecord[0],
+        savingRecord,
       },
     }).code(200);
   },

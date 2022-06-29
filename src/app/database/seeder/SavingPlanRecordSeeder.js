@@ -15,19 +15,15 @@ exports.seed = async function (knex) {
   const savings = await Saving.allTest();
   console.log(savings);
   savings.forEach((saving) => {
-    data.push({
-      id: nanoid(),
-      user_id: saving.user_id,
-      saving_plan_id: saving.id,
-      save: JSON.stringify([{
-        amount: Math.floor(Math.random() * 1000000) + 1000000,
-        date: faker.date.past(),
-      },
-      {
-        amount: Math.floor(Math.random() * 1000000) + 1000000,
-        date: faker.date.past(),
-      }]),
-    });
+    for (let i = 0; i < 5; i++) {
+      data.push({
+        id: nanoid(),
+        saving_plan_id: saving.id,
+        save: Math.floor(Math.random() * 1000000) + 1000000,
+        date: faker.date.future(),
+      });
+      setTimeout(() => {}, 100);
+    }
   });
   console.log(data);
   await knex('saving_records').insert(data);
