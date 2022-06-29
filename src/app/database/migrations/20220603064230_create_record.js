@@ -9,7 +9,7 @@ exports.up = function (knex) {
     table.enum('type', ['income', 'expense']).notNullable();
     table.string('note').nullable();
     table.bigInteger('amount').notNullable();
-    table.string('category').nullable();
+    table.string('category_id').references('id').inTable('categories');
     table.date('date').notNullable();
 
     // soft delete
