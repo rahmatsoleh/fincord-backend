@@ -5,6 +5,7 @@ const Record = require('../models/Record');
 const Saving = require('../models/Saving');
 const SavingRecord = require('../models/SavingRecord');
 const User = require('../models/User');
+const NotificationModel = require('../models/notification-model');
 
 const DataController = {
   whereAll: async (request, h) => {
@@ -20,6 +21,7 @@ const DataController = {
     const bills = await Bill.all(query.id);
     const saving_records = await SavingRecord.all(query.id);
     const categories = await Category.getAllByUserId(query.id);
+    const notifications = await NotificationModel.getAllByUserId(query.id);
 
     // decode json saving save
     const saving_records_decode = saving_records.map((saving_record) => ({
@@ -60,6 +62,7 @@ const DataController = {
         saving_record: saving_records_decode,
         bills,
         categories,
+        notifications,
       },
     }).code(200);
   },
