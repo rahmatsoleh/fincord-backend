@@ -46,6 +46,14 @@ class SavingRecord {
     return saving_record[0];
   }
 
+  static async deleteBySavingPlanId(saving_plan_id) {
+    const saving_record = await connection.promise().query(
+      'DELETE FROM saving_records WHERE saving_plan_id = ?',
+      [saving_plan_id],
+    ).catch((err) => console.log(err));
+    return saving_record[0];
+  }
+
   static async delete(id) {
     const saving_record = await connection.promise().query(
       'DELETE FROM saving_records WHERE id = ?',

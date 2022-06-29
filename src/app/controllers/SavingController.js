@@ -1,4 +1,5 @@
 const Saving = require('../models/Saving');
+const SavingRecord = require('../models/SavingRecord');
 
 const SavingController = {
   all: async (request, h) => {
@@ -82,8 +83,10 @@ const SavingController = {
 
   delete: async (request, h) => {
     const { id } = request.params;
-
+    console.log(request.params);
+    const savingRecord = await SavingRecord.deleteBySavingPlanId(id);
     const saving = await Saving.delete(id);
+    console.log(saving, savingRecord);
 
     return h.response({
       error: false,
@@ -91,6 +94,7 @@ const SavingController = {
       message: 'success',
       data: {
         saving,
+        savingRecord,
       },
     }).code(200);
   },

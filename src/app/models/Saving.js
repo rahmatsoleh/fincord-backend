@@ -56,7 +56,7 @@ class Saving {
     const saving = await connection.promise().query(
       'DELETE FROM saving_plans WHERE id = ?',
       [id],
-    );
+    ).catch((err) => console.log(err));
     return saving[0];
   }
 }
