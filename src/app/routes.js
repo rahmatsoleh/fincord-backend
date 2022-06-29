@@ -5,6 +5,7 @@ const RecordController = require('./controllers/RecordController');
 const SavingController = require('./controllers/SavingController');
 const SavingRecordController = require('./controllers/SavingRecordController');
 const BillController = require('./controllers/BillController');
+const NotifController = require('./controllers/NotifController');
 
 const routes = [
   {
@@ -176,6 +177,16 @@ const routes = [
     method: 'DELETE',
     path: '/api/bill/{id}',
     handler: BillController.delete,
+  },
+  {
+    method: 'POST',
+    path: '/api/notifications',
+    handler: NotifController.post,
+  },
+  {
+    method: 'PUT',
+    path: '/api/notifications',
+    handler: NotifController.put,
   },
 ];
 
