@@ -10,6 +10,7 @@ exports.up = function (knex) {
     table.string('note').nullable();
     table.bigInteger('amount').notNullable();
     table.string('category').nullable();
+    table.date('date').notNullable();
 
     // soft delete
     table.dateTime('deleted_at').nullable();

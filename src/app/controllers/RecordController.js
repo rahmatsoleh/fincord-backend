@@ -60,6 +60,7 @@ const RecordController = {
       amount: payload.count,
       note: payload.description,
       category: payload.category,
+      date: payload.date,
     });
 
     return h.response({
