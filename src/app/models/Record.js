@@ -20,11 +20,11 @@ class Record {
   }
 
   static async create({
-    id, user_id, type, amount, note, category,
+    id, user_id, type, amount, note, category, date,
   }) {
     const record = await connection.promise().query(
-      'INSERT INTO records (id, user_id, type, amount, note, category) VALUES (?, ?, ?, ?, ?, ?)',
-      [id, user_id, type, amount, note, category],
+      'INSERT INTO records (id, user_id, type, amount, note, category) VALUES (?, ?, ?, ?, ?, ?, ?)',
+      [id, user_id, type, amount, note, category, date],
     ).catch((err) => console.log(err));
     return record[0];
   }
