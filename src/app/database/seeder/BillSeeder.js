@@ -23,11 +23,15 @@ exports.seed = async function (knex) {
         id: nanoid(),
         user_id: user.id,
         name: faker.word.noun(),
-        description: faker.lorem.paragraph(),
-        goal_amount: Math.floor(Math.random() * 1000000) + 1000000,
-        due_date: faker.date.future(),
-        type: type[Math.floor(Math.random() * type.length)],
-        status: status[Math.floor(Math.random() * status.length)],
+        // description: faker.lorem.paragraph(),
+        // goal_amount: Math.floor(Math.random() * 1000000) + 1000000,
+        // due_date: faker.date.future(),
+        // type: type[Math.floor(Math.random() * type.length)],
+        // status: status[Math.floor(Math.random() * status.length)],
+        payment: faker.finance.amount(),
+        date: faker.date.future(),
+        reminder: faker.datatype.boolean(),
+        status_paid: faker.datatype.boolean(),
       });
     }
   }

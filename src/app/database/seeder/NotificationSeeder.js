@@ -13,16 +13,20 @@ exports.seed = async function (knex) {
   await knex('notifications').del();
 
   const notification_temps = await NotificationTemp.all();
+  const users = await User.all();
 
   const data = [];
 
-  notification_temps.forEach((notification_temp) => {
+  users.forEach((user) => {
     data.push({
       id: nanoid(),
-      id_ntemp: notification_temp.id,
+      user_id: user.id,
       name: faker.word.verb(),
+      bill: faker.word.noun(),
+      tag: faker.random.numeric() % 10,
+      dateline: faker.date.future(),
       description: faker.lorem.sentence(),
-      link: faker.lorem.slug(),
+      // link: faker.lorem.slug(),
       is_reading: faker.datatype.boolean(),
     });
   });
