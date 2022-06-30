@@ -3,7 +3,7 @@ const connection = require('../config/database');
 class SavingRecord {
   static async all(id) {
     const saving_records = await connection.promise().query(
-      'SELECT * FROM saving_records WHERE user_id = ?',
+      'SELECT * FROM saving_records WHERE  ?',
       [id],
     );
     return saving_records[0];
@@ -26,22 +26,31 @@ class SavingRecord {
   }
 
   static async create({
-    id, user_id, saving_plan_id, save,
+    id, saving_plan_id, save, date,
   }) {
     const saving_record = await connection.promise().query(
-      'INSERT INTO saving_records (id, user_id, saving_plan_id, save) VALUES (?, ?, ?, ?)',
-      [id, user_id, saving_plan_id, save],
-    );
+      'INSERT INTO saving_records (id, saving_plan_id, save, date) VALUES (?, ?, ?, ?)',
+      [id, saving_plan_id, save, date],
+    ).catch((error) => console.log(error));
+    console.log(saving_record[0]);
     return saving_record[0];
   }
 
   static async update({
-    id, user_id, saving_plan_id, save,
+    id, saving_plan_id, save,
   }) {
     const saving_record = await connection.promise().query(
-      'UPDATE saving_records SET user_id = ?, saving_plan_id = ?, save = ? WHERE id = ?',
-      [user_id, saving_plan_id, save, id],
+      'UPDATE saving_records SET saving_plan_id = ?, save = ? WHERE id = ?',
+      [saving_plan_id, save, id],
     );
+    return saving_record[0];
+  }
+
+  static async deleteBySavingPlanId(saving_plan_id) {
+    const saving_record = await connection.promise().query(
+      'DELETE FROM saving_records WHERE saving_plan_id = ?',
+      [saving_plan_id],
+    ).catch((err) => console.log(err));
     return saving_record[0];
   }
 

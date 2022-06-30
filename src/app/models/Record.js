@@ -20,21 +20,21 @@ class Record {
   }
 
   static async create({
-    id, user_id, type, amount, note, category, date,
+    id, user_id, type, amount, note, category_id, date,
   }) {
     const record = await connection.promise().query(
-      'INSERT INTO records (id, user_id, type, amount, note, category) VALUES (?, ?, ?, ?, ?, ?, ?)',
-      [id, user_id, type, amount, note, category, date],
+      'INSERT INTO records (id, user_id, type, amount, note, category_id, date) VALUES (?, ?, ?, ?, ?, ?, ?)',
+      [id, user_id, type, amount, note, category_id, date],
     ).catch((err) => console.log(err));
     return record[0];
   }
 
   static async update({
-    id, user_id, type, amount, note, category,
+    id, user_id, type, amount, note, category_id,
   }) {
     const record = await connection.promise().query(
-      'UPDATE records SET user_id = ?, type = ?, amount = ?, note = ?, category = ?, updated_at = now() WHERE id = ?',
-      [user_id, type, amount, note, category, id],
+      'UPDATE records SET user_id = ?, type = ?, amount = ?, note = ?, category_id = ?, updated_at = now() WHERE id = ?',
+      [user_id, type, amount, note, category_id, id],
     ).catch((err) => console.log(err));
     return record[0];
   }
