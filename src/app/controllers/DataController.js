@@ -24,10 +24,11 @@ const DataController = {
     const notifications = await NotificationModel.getAllByUserId(query.id);
 
     // decode json saving save
-    const saving_records_decode = saving_records.map((saving_record) => ({
-      ...saving_record,
-      save: JSON.parse(saving_record.save),
-    }));
+    // const saving_records_decode = saving_records.map((saving_record) => ({
+    //   ...saving_record,
+    //   save: JSON.parse(saving_record.save),
+    // }));
+    const saving_record = await SavingRecord.getByUserId(query.id);
 
     // add title from records[n].category
     const mapped_records = records.map((record, i) => Object.assign(record, {
@@ -59,7 +60,7 @@ const DataController = {
           },
         },
         savings,
-        saving_record: saving_records_decode,
+        saving_record,
         bills,
         categories,
         notifications,

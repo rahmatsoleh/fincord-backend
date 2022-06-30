@@ -82,8 +82,8 @@ const RecordController = {
       id: payload.id,
       user_id: payload.user_id,
       type: 'expense',
-      amount: payload.count,
-      note: payload.description,
+      amount: payload.amount,
+      note: payload.note,
       category_id: payload.category_id,
       date: payload.date,
     });

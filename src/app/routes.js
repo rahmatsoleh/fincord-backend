@@ -175,7 +175,7 @@ const routes = [
   },
   {
     method: 'DELETE',
-    path: '/api/bill/{id}',
+    path: '/api/bill',
     handler: BillController.delete,
   },
   {

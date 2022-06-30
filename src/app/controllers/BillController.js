@@ -38,12 +38,11 @@ const BillController = {
 
     const bill = await Bill.create({
       id: payload.id,
-      user_id: payload.user_id,
+      user_id: payload.userId,
       name: payload.name,
-      description: payload.description,
-      goal_amount: payload.goal_amount,
-      due_date: payload.due_date,
-      type: payload.type,
+      payment: payload.payment,
+      date: payload.date,
+      reminder: payload.remember,
     });
 
     return h.response({
@@ -62,12 +61,12 @@ const BillController = {
 
     const bill = await Bill.update({
       id: payload.id,
-      user_id: payload.user_id,
+      user_id: payload.userId,
       name: payload.name,
-      description: payload.description,
-      goal_amount: payload.goal_amount,
-      due_date: payload.due_date,
-      type: payload.type,
+      payment: payload.payment,
+      date: payload.date,
+      reminder: payload.remember,
+      status_paid: payload.status,
     });
 
     return h.response({
@@ -81,8 +80,11 @@ const BillController = {
   },
 
   delete: async (request, h) => {
-    const { id } = request.params;
-    const bill = await Bill.delete({ id });
+    const { payload } = request;
+    const bill = await Bill.delete({
+      id: payload.id,
+      user_id: payload.userId,
+    });
 
     return h.response({
       error: false,

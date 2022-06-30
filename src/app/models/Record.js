@@ -26,7 +26,7 @@ class Record {
       'INSERT INTO records (id, user_id, type, amount, note, category_id, date) VALUES (?, ?, ?, ?, ?, ?, ?)',
       [id, user_id, type, amount, note, category_id, date],
     ).catch((err) => console.log(err));
-    return record[0];
+    return record;
   }
 
   static async update({

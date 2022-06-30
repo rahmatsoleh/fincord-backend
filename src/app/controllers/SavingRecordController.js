@@ -44,6 +44,7 @@ const SavingRecordController = {
     const savingRecord = await SavingRecord.create({
       id: payload.id,
       saving_plan_id: payload.saving_plan_id,
+      user_id: payload.userId,
       save: payload.save,
       date: payload.date,
     });

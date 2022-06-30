@@ -18,31 +18,29 @@ class Bill {
   }
 
   static async create({
-    id, user_id, name, description, goal_amount, reminder, reminder_before, reminder_time, due_date, type = 'monthly', status = 'active',
+    id, user_id, name, payment, date, reminder,
   }) {
     const bill = await connection.promise().query(
-      'INSERT INTO bills (id, user_id, name, description, goal_amount, reminder, reminder_before, reminder_time, due_date, type, status, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, now(), now())',
-      [id, user_id, name, description, goal_amount, reminder,
-        reminder_before, reminder_time, due_date, type, status],
+      'INSERT INTO bills (id, user_id, name, payment, date, reminder, status_paid, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, now(), now())',
+      [id, user_id, name, payment, date, reminder, false],
     ).catch((err) => console.log(err));
     return bill[0];
   }
 
   static async update({
-    id, user_id, name, description, goal_amount, reminder, reminder_before, reminder_time, due_date, type = 'monthly', status = 'active',
+    id, user_id, name, payment, date, reminder, status_paid,
   }) {
     const bill = await connection.promise().query(
-      'UPDATE bills SET user_id = ?, name = ?, description = ?, goal_amount = ?, reminder = ?, reminder_before = ?, reminder_time = ?, due_date = ?, type = ?, status = ?, updated_at = now() WHERE id = ?',
-      [user_id, name, description, goal_amount, reminder,
-        reminder_before, reminder_time, due_date, type, status, id],
+      'UPDATE bills SET name = ?, payment = ?, date = ?, reminder = ?, status_paid = ?, updated_at = now() WHERE id = ? AND user_id = ?',
+      [name, payment, date, reminder, status_paid, id, user_id],
     ).catch((err) => console.log(err));
     return bill[0];
   }
 
-  static async delete({ id }) {
+  static async delete({ id, user_id }) {
     const bill = await connection.promise().query(
-      'DELETE FROM bills WHERE id = ?',
-      [id],
+      'DELETE FROM bills WHERE id = ? AND user_id = ?',
+      [id, user_id],
     ).catch((err) => console.log(err));
     return bill[0];
   }
