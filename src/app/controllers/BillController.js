@@ -66,7 +66,7 @@ const BillController = {
       payment: payload.payment,
       date: payload.date,
       reminder: payload.remember,
-      status_paid: payload.status,
+      status_paid: !!payload.status,
     });
 
     return h.response({
