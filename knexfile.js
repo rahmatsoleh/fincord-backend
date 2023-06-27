@@ -8,11 +8,10 @@ module.exports = {
   development: {
     client: "mysql2",
     connection: {
-      host:
-        dotenv.config().parsed.DB_HOST || "containers-us-west-133.railway.app",
-      user: dotenv.config().parsed.DB_USER || "root",
-      password: dotenv.config().parsed.DB_PASSWORD || "7cUuXIEibz6roJNm7BNU",
-      database: dotenv.config().parsed.DB_DATABASE || "railway",
+      host: process.env.DB_HOST || dotenv.config().parsed.DB_HOST,
+      user: process.env.DB_USER || dotenv.config().parsed.DB_USER,
+      password: process.env.DB_PASSWORD || dotenv.config().parsed.DB_PASSWORD,
+      database: process.env.DB_DATABASE || dotenv.config().parsed.DB_DATABASE,
     },
     migrations: {
       directory: "./src/app/database/migrations",
@@ -25,10 +24,10 @@ module.exports = {
   staging: {
     client: "mysql2",
     connection: {
-      host: dotenv.config().parsed.DB_HOST,
-      user: dotenv.config().parsed.DB_USER,
-      password: dotenv.config().parsed.DB_PASSWORD,
-      database: dotenv.config().parsed.DB_DATABASE,
+      host: process.env.DB_HOST || dotenv.config().parsed.DB_HOST,
+      user: process.env.DB_USER || dotenv.config().parsed.DB_USER,
+      password: process.env.DB_PASSWORD || dotenv.config().parsed.DB_PASSWORD,
+      database: process.env.DB_DATABASE || dotenv.config().parsed.DB_DATABASE,
     },
     pool: {
       min: 2,
@@ -42,10 +41,10 @@ module.exports = {
   production: {
     client: "mysql2",
     connection: {
-      host: dotenv.config().parsed.DB_HOST,
-      user: dotenv.config().parsed.DB_USER,
-      password: dotenv.config().parsed.DB_PASSWORD,
-      database: dotenv.config().parsed.DB_DATABASE,
+      host: process.env.DB_HOST || dotenv.config().parsed.DB_HOST,
+      user: process.env.DB_USER || dotenv.config().parsed.DB_USER,
+      password: process.env.DB_PASSWORD || dotenv.config().parsed.DB_PASSWORD,
+      database: process.env.DB_DATABASE || dotenv.config().parsed.DB_DATABASE,
     },
     pool: {
       min: 2,
