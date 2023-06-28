@@ -7,6 +7,7 @@ const connection = mysql.createConnection({
   user: process.env.DB_USER || dotenv.config().parsed.DB_USER,
   password: process.env.DB_PASSWORD || dotenv.config().parsed.DB_PASSWORD,
   database: process.env.DB_DATABASE || dotenv.config().parsed.DB_DATABASE,
+  port: process.env.DB_PORT || dotenv.config().parsed.DB_PORT,
 });
 
 connection.connect((err) => {
