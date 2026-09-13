@@ -1,0 +1,46 @@
+services:
+  fincord-db:
+    image: mysql:8.4
+    container_name: fincord-database
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "3308:3306"
+    volumes:
+      - fincord-db-data:/var/lib/mysql
+    networks:
+      - fincord-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${DB_ROOT_PASSWORD}"]
+      interval: 5s
+      timeout: 5s
+      retries: 25
+      start_period: 10s
+  
+  fincord-back:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: fincord-back:latest
+    container_name: fincord-back
+    restart: unless-stopped
+    env_file:
+      - .env.prod
+    ports:
+      - "${APP_PORT}:3000"
+    depends_on:
+      fincord-db:
+        condition: service_healthy
+    networks:
+      - fincord-network
+
+volumes:
+  fincord-db-data:
+
+networks:
+  fincord-network:
+    driver: bridge
